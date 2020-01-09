@@ -1,2 +1,2 @@
-# MOV_proyecto_final
- MOV final project using Unity and Vuforia
+# RVA_proyecto_final
+ RVA final project using Unity and Vuforia
