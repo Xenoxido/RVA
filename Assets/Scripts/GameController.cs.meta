@@ -3,7 +3,14 @@ guid: 7a0468bef8fe0164a875c340fdeade12
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - globalPlant: {fileID: 3760258236025384349, guid: d53103e638ca2a44fba0e01321b1d12c,
+      type: 3}
+  - globalPipe: {fileID: 5751105145791259308, guid: 188a1d8f2a4b0544083e2a34625b9da6,
+      type: 3}
+  - globalBullet: {fileID: 605754585050704601, guid: 0332bf3835f01604884263d4f88a59b5,
+      type: 3}
+  - fireButton: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
