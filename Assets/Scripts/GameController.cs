@@ -7,7 +7,7 @@ using Vuforia;
 
 public class GameController : MonoBehaviour
 {
-    public GameObject capRed;
+    public GameObject plant;
     public GameObject bala;
 
     private float dist;
@@ -16,7 +16,8 @@ public class GameController : MonoBehaviour
     public float thrust = 1.0f;
     public Button fireButton;
     public int lastTime;
-
+    public int genTime = 3;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -26,24 +27,30 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (System.DateTime.Now.Second - lastTime > 1)
+        if(DateTime.Now.Second == 0)
+        {
+            lastTime = 0;
+        }
+        if (DateTime.Now.Second - lastTime >= genTime)
         {
             float x = UnityEngine.Random.Range(-0.5f, 0.5f);
             float z = UnityEngine.Random.Range(-0.28f, 0.28f);
-            GenerarCapRed(x, z);
+            GeneratePlant(x, z);
             lastTime = System.DateTime.Now.Second;
         }
     }
 
-    public void GenerarCapRed(float x, float z)
+    public void GeneratePlant(float x, float z)
     {
-        GameObject cap = (GameObject)Instantiate(capRed);
-        //cap.transform.position = this.transform.position + new Vector3(x, 0, z);
-        cap.transform.SetPositionAndRotation(this.transform.position /*+ new Vector3(x, 0, z)*/, this.transform.rotation);
-        //cap.transform.position = new Vector3(x, 0, z);
-        cap.transform.parent = this.transform;
-        cap.transform.position += new Vector3(x, 0, z);
-        cap.SetActive(true);
+        GameObject p = (GameObject)Instantiate(plant);
+        //p.transform.position = this.transform.position + new Vector3(x, 0, z);
+        p.transform.SetPositionAndRotation(this.transform.position /*+ new Vector3(x, 0, z)*/, this.transform.rotation);
+        p.transform.Rotate(new Vector3(0, UnityEngine.Random.Range(0,360), 180));
+        //p.transform.position = new Vector3(x, 0, z);
+        p.transform.parent = this.transform;
+        p.transform.position += new Vector3(x, 0, z);
+        //Debug.Log(p.transform.position.y);
+        p.SetActive(true);
     }
 
 
