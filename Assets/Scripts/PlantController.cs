@@ -9,6 +9,7 @@ public class PlantController : MonoBehaviour
 {
     // Start is called before the first frame update
     private Text marcador;
+    public PipeController pipe;
     private Coroutine coroutine;
     void Start()
     {
@@ -33,9 +34,16 @@ public class PlantController : MonoBehaviour
         coroutine = StartCoroutine(Die(0.01f));
     }
 
+    public void ActivePlant()
+    {
+        pipe.havePlant = true;
+        gameObject.SetActive(true);
+    }
+
     private IEnumerator Die(float timeToDie)
     {
         yield return new WaitForSeconds(timeToDie);
-        Destroy(this.gameObject);
+        pipe.havePlant = false;
+        gameObject.SetActive(false);
     }
 }

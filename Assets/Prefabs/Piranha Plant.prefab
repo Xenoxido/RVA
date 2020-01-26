@@ -857,9 +857,10 @@ GameObject:
   - component: {fileID: 176844529101528974}
   - component: {fileID: 9213647640598852620}
   - component: {fileID: -7898083032334541872}
+  - component: {fileID: 4402453885854110492}
   m_Layer: 0
   m_Name: Piranha Plant
-  m_TagString: Untagged
+  m_TagString: Plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -905,6 +906,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b94890e834c6614686801e3d4ac234c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pipe: {fileID: 0}
+--- !u!95 &4402453885854110492
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3760258236025384349}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8762975f9712b3f4a90159c8b6be6535, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3906591066343977556
 GameObject:
   m_ObjectHideFlags: 0

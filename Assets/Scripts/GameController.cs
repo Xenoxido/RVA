@@ -13,9 +13,11 @@ public class GameController : MonoBehaviour
     public float thrust = 2.0f;
     public Button fireButton;
     public float timer = 0.0f;
-    public float timeBetweenGeneration = 1.0f;
+    public int timeBetweenGeneration = 3;
+    public float spawnProb = 0.3f;
 
     public GameObject[] pipes = new GameObject[6];
+    public GameObject[] plants = new GameObject[6];
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +28,7 @@ public class GameController : MonoBehaviour
             for (int y = -1; y <= 1; y += 2)
             {
                 pipes[i] = GeneratePipe(0.5f * x, 0.28f * y);
-                GeneratePlant(pipes[i], 0.5f * x, 0.28f * y);
+                plants[i] = GeneratePlant(pipes[i], 0.5f * x, 0.28f * y);
                 i++;
             }
 
@@ -37,16 +39,21 @@ public class GameController : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-
         if (timer >= timeBetweenGeneration)
         {
+            timer = 0;
             // TODO Esto antes generaba planticas. Ahora lo que tendrá que hacer es
             // respawnear (hacer crecer) las que están como hijas de las pipe (hay un método getChild o algo así).
 
-            /*float x = Random.Range(-0.5f, 0.5f);
-            float y = Random.Range(-0.28f, 0.28f);
-            GeneratePipe(x, y);
-            timer = 0.0f;*/
+            for (int i = 0; i < 6; i++)
+            {
+
+                if (Random.Range(0.0f, 1.0f) < spawnProb && !pipes[i].GetComponent<PipeController>().havePlant)
+                {
+                    plants[i].GetComponent<PlantController>().ActivePlant();
+                    pipes[i].GetComponent<AudioSource>().Play();
+                }
+            }
         }
     }
 
@@ -61,14 +68,17 @@ public class GameController : MonoBehaviour
         return pipe;
     }
 
-    public void GeneratePlant(GameObject pipe, float x, float y)
+    public GameObject GeneratePlant(GameObject pipe, float x, float y)
     {
         GameObject plant = (GameObject)Instantiate(globalPlant);
         //plant.transform.SetPositionAndRotation(pipe.transform.position, pipe.transform.rotation);
         plant.transform.Rotate(new Vector3(0, Random.Range(0, 360), 0));
         plant.transform.parent = pipe.transform;
         plant.transform.position = new Vector3(x, 0, -y);
+        plant.GetComponent<PlantController>().pipe = pipe.GetComponent<PipeController>();
+        plant.GetComponent<PlantController>().pipe.havePlant = true;
         plant.SetActive(true);
+        return plant;
     }
 
 

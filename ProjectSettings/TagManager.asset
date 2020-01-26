@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Marcador
   - Target
+  - Pipe
+  - Plant
+  - Bill Bala
   layers:
   - Default
   - TransparentFX

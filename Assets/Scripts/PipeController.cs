@@ -8,6 +8,7 @@ public class PipeController : MonoBehaviour
     private float dist;
     private Vector3 v3Offset;
     private Plane plane;
+    public bool havePlant = false;
 
     // Start is called before the first frame update
     void Start()
