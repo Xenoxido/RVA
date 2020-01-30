@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour, ITrackableEventHandler
     public GameObject globalPlant;
     public GameObject globalPipe;
     public GameObject globalBullet;
+    public GameObject globalMirilla;
+
 
     public float thrust = 2.0f;
     public Button fireButton;
@@ -73,11 +75,14 @@ public class GameController : MonoBehaviour, ITrackableEventHandler
             }
             // Enable fire button
             fireButton.interactable = true;
+            // Enable mirilla
+            globalMirilla.SetActive(true);
         }
         else
         {
             audio.Pause();
             fireButton.interactable = false;
+            globalMirilla.SetActive(false);
         }
     }
 
