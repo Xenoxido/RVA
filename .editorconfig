@@ -8,3 +8,6 @@ dotnet_diagnostic.CA1062.severity = none
 
 # CA1305: Especificar IFormatProvider
 dotnet_diagnostic.CA1305.severity = none
+
+# CS0108: El miembro oculta el miembro heredado. Falta una contraseña nueva
+dotnet_diagnostic.CS0108.severity = none

@@ -4,8 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using Vuforia;
 
-public class GameController : MonoBehaviour
+public class GameController : MonoBehaviour, ITrackableEventHandler
 {
+    private TrackableBehaviour mTrackableBehaviour;
+    private AudioSource audio;
+    private bool firstTime = true;
+
     public GameObject globalPlant;
     public GameObject globalPipe;
     public GameObject globalBullet;
@@ -13,15 +17,24 @@ public class GameController : MonoBehaviour
     public float thrust = 2.0f;
     public Button fireButton;
     public float timer = 0.0f;
-    public int timeBetweenGeneration = 3;
-    public float spawnProb = 0.3f;
+    public float timeBetweenGeneration = 0.01f;
+    public float spawnProb = 0.005f;
 
     public GameObject[] pipes = new GameObject[6];
     public GameObject[] plants = new GameObject[6];
 
+
     // Start is called before the first frame update
     void Start()
     {
+        mTrackableBehaviour = gameObject.GetComponent<TrackableBehaviour>();
+        audio = gameObject.GetComponent<AudioSource>();
+
+        if (mTrackableBehaviour)
+        {
+            mTrackableBehaviour.RegisterTrackableEventHandler(this);
+        }
+
         int i = 0;
         for (int x = -1; x <= 1; x++)
         {
@@ -29,9 +42,42 @@ public class GameController : MonoBehaviour
             {
                 pipes[i] = GeneratePipe(0.5f * x, 0.28f * y);
                 plants[i] = GeneratePlant(pipes[i], 0.5f * x, 0.28f * y);
+                pipes[i].SetActive(false);
                 i++;
             }
 
+        }
+    }
+
+    public void OnTrackableStateChanged(
+                                    TrackableBehaviour.Status previousStatus,
+                                    TrackableBehaviour.Status newStatus)
+    {
+        if (newStatus == TrackableBehaviour.Status.DETECTED ||
+            newStatus == TrackableBehaviour.Status.TRACKED ||
+            newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
+        {
+            // Enable pipes visualization
+            if(firstTime)
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    pipes[i].SetActive(true);
+                }
+                audio.Play();
+                firstTime = false;
+            } else
+            {
+                // UnPause audio
+                audio.UnPause();
+            }
+            // Enable fire button
+            fireButton.interactable = true;
+        }
+        else
+        {
+            audio.Pause();
+            fireButton.interactable = false;
         }
     }
 

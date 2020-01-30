@@ -5,10 +5,11 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     public AudioClip plantDied;
+    private Coroutine die;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Die());
+        die = StartCoroutine(Die(10));
     }
 
     // Update is called once per frame
@@ -21,12 +22,14 @@ public class BulletController : MonoBehaviour
         if(collision.transform.tag == "Plant")
         {
             this.GetComponent<AudioSource>().PlayOneShot(plantDied);
+            StopCoroutine(die);
+            die = StartCoroutine(Die(1.2f));
         }
     }
 
-    private IEnumerator Die()
+    private IEnumerator Die(float seconds)
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(seconds);
         Destroy(this.gameObject);
     }
 }
